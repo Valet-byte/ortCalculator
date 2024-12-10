@@ -89,14 +89,12 @@ data class Vector(
     }
 
     private fun isNormalizedCords(): Boolean {
-        val normalizedCords = true
         for (i in numbers.indices) {
             if (numbers[i].denominator != BigDecimal.ONE) {
                 return false
-                break
             }
         }
-        return normalizedCords
+        return true
     }
 
     fun  normalizeCords(): Pair<Fraction, Vector> {
@@ -108,7 +106,9 @@ data class Vector(
             }
         }
 
-        val result = numbers.map { Fraction(it.numerator * (maxDenominator / it.denominator), BigDecimal.ONE) }
+        val delim = Fraction(BigDecimal.ONE, maxDenominator)
+
+        val result = numbers.map { it / delim }
 
         return Pair(Fraction(BigDecimal.ONE, maxDenominator), Vector(result))
 
@@ -122,10 +122,6 @@ data class Vector(
         val sqrt = number.sqrt(MathContext.DECIMAL128)
         return sqrt.scale() == 0 && sqrt.multiply(sqrt)
             .compareTo(number) == 0
-    }
-
-    fun isInteger(number: BigDecimal): Boolean {
-        return number.scale() == 0 && number != BigDecimal.ZERO
     }
 
     override fun toString(): String {
