@@ -101,5 +101,5 @@ infix fun Int.div(other: Int): Fraction {
 }
 
 fun Int.fraction(): Fraction {
-    return Fraction(this.toBigDecimal(), 1.toBigDecimal())
+    return Fraction(this.toBigDecimal(), BigDecimal.ONE)
 }

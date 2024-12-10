@@ -3,10 +3,10 @@ package org.example
 import org.example.model.Vector
 
 fun main() {
-    val e1 = Vector(1, 1, 1, 1)
+    val e1 = Vector(3, -1, -1, 0)
 
-    val a2 = Vector(1, 4, 9, 16)
-    val a3 = Vector(1, 6, 27, 64)
+    val a2 = Vector(2, -1, 0, 1)
+    val a3 = Vector(1, 1, -2, 3)
 
     val lam21 = ((a2 * e1) / (e1 * e1)) * (-1)
     val lam31 = ((a3 * e1) / (e1 * e1)) * (-1)

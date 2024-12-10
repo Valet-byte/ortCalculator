@@ -106,6 +106,10 @@ data class Vector(
             }
         }
 
+        if (maxDenominator == BigDecimal.ONE) {
+            return Pair(Fraction(BigDecimal.ONE), this)
+        }
+
         val delim = Fraction(BigDecimal.ONE, maxDenominator)
 
         val result = numbers.map { it / delim }
