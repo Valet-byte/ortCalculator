@@ -1,7 +1,6 @@
 package org.example.model
 
 import java.math.BigDecimal
-import java.math.MathContext
 
 data class Fraction(
     val numerator: BigDecimal,
@@ -64,15 +63,6 @@ data class Fraction(
 
     }
 
-    fun sqrt(): Fraction {
-        return Fraction(numerator.sqrt(MathContext.DECIMAL128),
-            denominator.sqrt(MathContext.DECIMAL128))
-    }
-
-    fun square(): Fraction {
-        return Fraction(numerator * numerator, denominator * denominator)
-    }
-
     private fun gcd(a: BigDecimal, b: BigDecimal): BigDecimal {
         var num1 = b
         var num2 = a
@@ -89,7 +79,10 @@ data class Fraction(
     override fun toString(): String {
         return if (numerator == denominator) "1"
         else if (denominator == BigDecimal.ONE) numerator.toString()
-        else if (numerator % denominator == BigDecimal.ZERO) numerator.toString()
+        else if (numerator % denominator == BigDecimal.ZERO) {
+            if (denominator < BigDecimal.ZERO) "-$numerator"
+            else numerator.toString()
+        }
         else if (isDenominatorSqrt) "($numerator/√$denominator)"
         else "($numerator/$denominator)"
     }
