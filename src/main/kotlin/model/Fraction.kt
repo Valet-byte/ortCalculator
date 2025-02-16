@@ -86,6 +86,10 @@ data class Fraction(
         else if (isDenominatorSqrt) "($numerator/√$denominator)"
         else "($numerator/$denominator)"
     }
+
+    fun equals(other: Int): Boolean {
+        return this == (other div 1)
+    }
 }
 
 

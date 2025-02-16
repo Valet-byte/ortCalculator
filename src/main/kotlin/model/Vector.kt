@@ -4,9 +4,11 @@ import java.math.BigDecimal
 import java.math.MathContext
 
 data class Vector(
-    val numbers: List<Fraction>,
+    val numbers: MutableList<Fraction>,
 ) {
-    constructor(vararg nums: Int) : this(nums.map { it.fraction() }.toList())
+    constructor(vararg nums: Int) : this(nums.map { it.fraction() }.toMutableList())
+
+    fun get(index: Int): Fraction {return numbers[index]}
 
     operator fun plus(other: Vector): Vector {
         if (other.numbers.size != this.numbers.size) {
@@ -83,9 +85,9 @@ data class Vector(
 
         if (isPerfectSquare(sumCords)) {
             sumCords = sumCords.sqrt(MathContext.DECIMAL128)
-            return Vector(nums.map { Fraction(it.numerator, sumCords) })
+            return Vector(nums.map { Fraction(it.numerator, sumCords) }.toMutableList())
         }
-        return Vector(nums.map { Fraction(it.numerator, sumCords, true) })
+        return Vector(nums.map { Fraction(it.numerator, sumCords, true) }.toMutableList())
     }
 
     private fun isNormalizedCords(): Boolean {
@@ -112,7 +114,7 @@ data class Vector(
 
         val delim = Fraction(BigDecimal.ONE, maxDenominator)
 
-        val result = numbers.map { it / delim }
+        val result = numbers.map { it / delim }.toMutableList()
 
         return Pair(Fraction(BigDecimal.ONE, maxDenominator), Vector(result))
 
